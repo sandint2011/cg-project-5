@@ -21,29 +21,6 @@ void ofApp::setup()
 	ofEnableDepthTest();
 	glEnable(GL_CULL_FACE);
 
-	//ofSetBackgroundColor(135, 205, 235, 255);
-
-	// Load cylinder and invert the normals.
-	cylinderMesh.load("cylinder.ply");
-	cylinderMesh.flatNormals();
-	for (int i = 0; i < cylinderMesh.getNumNormals(); i++)
-	{
-		cylinderMesh.setNormal(i, -cylinderMesh.getNormal(i));
-	}
-	// Load sphere and invert the normals.
-	sphereMesh.load("sphere.ply");
-	sphereMesh.flatNormals();
-	for (int i = 0; i < sphereMesh.getNumNormals(); i++)
-	{
-		sphereMesh.setNormal(i, -sphereMesh.getNormal(i));
-	}
-	// Load cone and invert the normals.
-	coneMesh.load("cone.ply");
-	coneMesh.flatNormals();
-	for (int i = 0; i < coneMesh.getNumNormals(); i++)
-	{
-		coneMesh.setNormal(i, -coneMesh.getNormal(i));
-	}
 	// Load cube and invert the normals.
 	cubeMesh.load("cube.ply");
 	cubeMesh.flatNormals();
@@ -62,9 +39,8 @@ void ofApp::setup()
 	// Initialize scene lighting.
 	sceneSpotLight.position = glm::vec3(0, 0, 0);
 	sceneSpotLight.direction = glm::vec3(1, -1, -1);
-	scenePointLight.position = glm::vec3(0, 0, 0);
 
-	// Add body to root.
+	// Add sword to root.
 	root.childNodes.emplace_back(new LitDrawNode(swordMesh, shader, sceneLighting));
 	root.childNodes.back()->localTransform = rotate(radians(-20.0f), vec3(1, 0, 0));
 	sword = root.childNodes.back();

@@ -48,12 +48,10 @@ private:
 	// Lighting.
 	DirectionalLight sceneDirectionalLight {glm::vec3(-1, -1, -1)};
 	SpotLight sceneSpotLight {};
-	PointLight scenePointLight {};
 	Lighting sceneLighting{
 		glm::vec3(0, 0, 0), // Ambient light.
 		sceneDirectionalLight,
-		sceneSpotLight,
-		scenePointLight
+		sceneSpotLight
 	};
 
 	ofShader shader;

@@ -24,10 +24,10 @@ void LitDrawNode::drawNode(const CameraMatrices& camera, const glm::mat4& model)
     shader.setUniform3f("spotLightPos", sceneLighting.spotLight.position);
     shader.setUniform1f("spotLightCutoff", sceneLighting.spotLight.cutoff);
     shader.setUniform1f("spotLightIntensity", sceneLighting.spotLight.intensity);
-    shader.setUniform3f("pointLightColor", sceneLighting.pointLight.getColorIntensity());
-    shader.setUniform3f("pointLightPos", sceneLighting.pointLight.position);
-    shader.setUniform1f("pointLightCutoff", sceneLighting.pointLight.cutoff);
-    shader.setUniform1f("pointLightIntensity", sceneLighting.pointLight.intensity);
+    // shader.setUniform3f("pointLightColor", sceneLighting.pointLight.getColorIntensity());
+    // shader.setUniform3f("pointLightPos", sceneLighting.pointLight.position);
+    // shader.setUniform1f("pointLightCutoff", sceneLighting.pointLight.cutoff);
+    // shader.setUniform1f("pointLightIntensity", sceneLighting.pointLight.intensity);
     mesh.draw(); // draw mesh
     shader.end(); // done with the shader
 }

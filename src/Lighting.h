@@ -8,5 +8,4 @@ public:
     glm::vec3 ambientLight;
     DirectionalLight dirLight;
     SpotLight spotLight;
-    PointLight pointLight;
 };
