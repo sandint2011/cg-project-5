@@ -22,6 +22,12 @@
     <ClCompile Include="src\SimpleAnimationNode.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\calcTangents.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ofxCubemap.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -63,6 +69,12 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\SceneGraphNode.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\calcTangents.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ofxCubemap.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
