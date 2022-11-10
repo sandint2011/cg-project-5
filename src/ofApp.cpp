@@ -40,10 +40,15 @@ void ofApp::setup()
 	sceneSpotLight.position = glm::vec3(0, 0, 0);
 	sceneSpotLight.direction = glm::vec3(1, -1, -1);
 
-	// Add sword to root.
-	root.childNodes.emplace_back(new LitDrawNode(swordMesh, shader, sceneLighting));
-	root.childNodes.back()->localTransform = rotate(radians(-20.0f), vec3(1, 0, 0));
-	sword = root.childNodes.back();
+	// Add animation to root.
+	root.childNodes.emplace_back(new SinAnimationNode(0.01f, glm::vec3(0, 1, 0), 1.0f));
+	root.childNodes.back()->localTransform = translate(vec3(0, 0, 0));
+	animation = root.childNodes.back();
+
+	// Add sword to animation.
+	animation->childNodes.emplace_back(new LitDrawNode(swordMesh, shader, sceneLighting));
+	animation->childNodes.back()->localTransform = rotate(radians(-30.0f), vec3(1, 0, 0));
+	sword = animation->childNodes.back();
 
 	reloadShaders();
 }

@@ -36,6 +36,7 @@ private:
 	// Scene nodes...
 	SceneGraphNode root;
 
+	std::shared_ptr<SceneGraphNode> animation;
 	std::shared_ptr<SceneGraphNode> sword;
 
 	// Meshes.
