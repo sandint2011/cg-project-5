@@ -29,7 +29,7 @@ void ofApp::setup()
 		cubeMesh.setNormal(i, -cubeMesh.getNormal(i));
 	}
 	// Load sword and invert the normals.
-	swordMesh.load("models/sword.ply");
+	swordMesh.load("models/swordTYPO.ply");
 	swordMesh.flatNormals();
 	for (int i = 0; i < swordMesh.getNumNormals(); i++)
 	{
@@ -50,6 +50,9 @@ void ofApp::setup()
 	animation->childNodes.back()->localTransform = rotate(radians(-30.0f), vec3(1, 0, 0));
 	sword = animation->childNodes.back();
 
+	// Skybox.
+	cubemap.load("textures/skybox_front.png", "textures/skybox_back.png", "textures/skybox_right.png", "textures/skybox_left.png", "textures/skybox_top.png", "textures/skybox_bottom.png");
+
 	reloadShaders();
 }
 
@@ -60,6 +63,7 @@ void ofApp::reloadShaders()
 	{
 		// Reload all shaders here.
 		shader.load("shader.vert", "shader.frag");
+		skyboxShader.load("skybox.vert", "skybox.frag");
 
 		needsShaderReload = false;
 	}
@@ -84,8 +88,8 @@ void ofApp::draw()
 	using namespace glm;
 	
 	// Camera settings.
-	const float nearClip = 0.1;
-	const float farClip = 200;
+	const float nearClip = 0.01;
+	const float farClip = 2000;
 	float aspectRatio = static_cast<float>(ofGetViewportWidth()) / static_cast<float>(ofGetViewportHeight());
 
 	// Calculate view and projection matrices for camera.
@@ -93,6 +97,28 @@ void ofApp::draw()
 
 	// Draw the whole scene graph, starting with the root and recursively drawing its children.
 	root.drawSceneGraph(cameraMatrices);
+
+	// Draw skybox before objects (hopefully this works).
+	drawSkybox(cameraMatrices);
+}
+
+//--------------------------------------------------------------
+
+void ofApp::drawSkybox(const CameraMatrices& cameraMatrices)
+{
+	using namespace glm;
+
+	//mat4 model{ translate(cameraMatrices.getCamera().position) };
+	
+	skyboxShader.begin();
+	glDepthFunc(GL_LEQUAL); // Pass depth test at far clipping plane.
+	
+	skyboxShader.setUniformMatrix4f("mvp", mat4(mat3(cameraMatrices.getView())));
+	skyboxShader.setUniformTexture("cubemap", cubemap.getTexture(), 0);
+	cubeMesh.draw();
+
+	glDepthFunc(GL_LESS); // Reset depth test.
+	skyboxShader.end();
 }
 
 //--------------------------------------------------------------

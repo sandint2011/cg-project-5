@@ -88,5 +88,11 @@
     <None Include="bin\data\shader.vert">
       <Filter>src</Filter>
     </None>
+    <None Include="bin\data\skybox.frag">
+      <Filter>src</Filter>
+    </None>
+    <None Include="bin\data\skybox.vert">
+      <Filter>src</Filter>
+    </None>
   </ItemGroup>
 </Project>

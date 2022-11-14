@@ -3,6 +3,7 @@
 #include <vector>
 #include "ofMain.h"
 #include "Camera.h"
+#include "CameraMatrices.h"
 #include "SceneGraphNode.h"
 #include "LitDrawNode.h"
 #include "Lighting.h"
@@ -10,6 +11,7 @@
 #include "PointLight.h"
 #include "SpotLight.h"
 #include "SpotLightNode.h"
+#include "ofxCubemap.h"
 
 class ofApp : public ofBaseApp
 {
@@ -32,6 +34,8 @@ public:
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
 
+	void drawSkybox(const CameraMatrices& cameraMatrices);
+
 private:
 	// Scene nodes...
 	SceneGraphNode root;
@@ -45,6 +49,10 @@ private:
 	ofMesh sphereMesh;
 	ofMesh coneMesh;
 	ofMesh cubeMesh;
+
+	// Skybox.
+	ofxCubemap cubemap;
+	ofShader skyboxShader;
 
 	// Lighting.
 	DirectionalLight sceneDirectionalLight {glm::vec3(-1, -1, -1)};
@@ -61,7 +69,7 @@ private:
 	float randf(float start, float end);
 
 	// Professor's camera.
-	Camera camera{ glm::vec3(0.5, 0.5, 0.5) };
+	Camera camera{ glm::vec3(0, 0, 0) };
 	glm::vec3 velocity;
 	int prevMouseX = ofGetViewportWidth() / 2;
 	int prevMouseY = ofGetViewportHeight() / 2;
