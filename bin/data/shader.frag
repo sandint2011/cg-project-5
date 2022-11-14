@@ -36,6 +36,16 @@ void main()
 	// Surface lighting.
 	vec3 irradiance = ambientColor + dirLightColor * nDotL;
 
+
+	//Spotlight lighting
+	vec3 toSpotLight = spotLightPos - worldPos;
+	vec3 spotLightDir = normalize(toSpotLight);
+	float cosAngle = dot(spotLightDir, -spotLightConeDir);
+	float spotFalloff = (1.0 / dot(toSpotLight, toSpotLight));
+	float spotNDotL = max(0, dot(normal, spotLightDir));
+	irradiance += spotLightColor * spotNDotL * spotFalloff * spotLightIntensity;
+	
+
 	// Add pointlight lighting.
 	vec3 toPointLight = pointLightPos - worldPos;
 	float pointFalloff = (1.0 / dot(toPointLight, toPointLight));
