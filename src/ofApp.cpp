@@ -29,16 +29,12 @@ void ofApp::setup()
 		cubeMesh.setNormal(i, -cubeMesh.getNormal(i));
 	}
 	// Load sword and invert the normals.
-	swordMesh.load("models/swordTYPO.ply");
+	swordMesh.load("models/sword.ply");
 	swordMesh.flatNormals();
 	for (int i = 0; i < swordMesh.getNumNormals(); i++)
 	{
 		swordMesh.setNormal(i, -swordMesh.getNormal(i));
 	}
-
-	// Initialize scene lighting.
-	sceneSpotLight.position = glm::vec3(0, 0, 0);
-	sceneSpotLight.direction = glm::vec3(1, -1, -1);
 
 	// Add animation to root.
 	root.childNodes.emplace_back(new SinAnimationNode(0.01f, glm::vec3(0, 1, 0), 1.0f));
@@ -99,7 +95,7 @@ void ofApp::draw()
 	root.drawSceneGraph(cameraMatrices);
 
 	// Draw skybox before objects (hopefully this works).
-	drawSkybox(cameraMatrices);
+	//drawSkybox(cameraMatrices);
 }
 
 //--------------------------------------------------------------
