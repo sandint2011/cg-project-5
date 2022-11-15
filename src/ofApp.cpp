@@ -19,7 +19,7 @@ void ofApp::setup()
 	ofDisableArbTex();
 
 	ofEnableDepthTest();
-	glEnable(GL_CULL_FACE);
+	// glEnable(GL_CULL_FACE); // Comment this out because the skybox won't draw then.
 
 	// Load cube and invert the normals.
 	cubeMesh.load("cube.ply");
@@ -113,7 +113,7 @@ void ofApp::drawSkybox(const CameraMatrices& cameraMatrices)
 	skyboxShader.begin();
 	glDepthFunc(GL_LEQUAL); // Pass depth test at far clipping plane.
 	
-	skyboxShader.setUniformMatrix4f("mvp", mat4(mat3(cameraMatrices.getView())));
+	skyboxShader.setUniformMatrix4f("mvp", cameraMatrices.getProj() * mat4(mat3(cameraMatrices.getView())));
 	skyboxShader.setUniformTexture("cubemap", cubemap.getTexture(), 0);
 	cubeMesh.draw();
 
