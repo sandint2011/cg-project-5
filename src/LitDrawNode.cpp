@@ -19,7 +19,6 @@ void LitDrawNode::drawNode(const CameraMatrices& camera, const glm::mat4& model)
     shader.setUniformMatrix4f("model", model);
     shader.setUniformMatrix3f("normalMatrix", transpose(inverse(model)));
 
-    //shader.setUnivorm2f("uv", );
     shader.setUniformTexture("colorTexture", colorTexture.getTexture(), 0);
     //shader.setUniformTexture("metallicTexture", metallicTexture.getTexture());
     //shader.setUniformTexture("normalTexture", normalTexture.getTexture());

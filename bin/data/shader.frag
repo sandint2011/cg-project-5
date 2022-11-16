@@ -54,7 +54,7 @@ void main()
 	irradiance += pointLightColor * pointFalloff * pointLightIntensity;
 
 	// Surface reflection.
-	vec3 linearColor = texture(colorTexture, fragUV) * irradiance;
+	vec3 linearColor = texture(colorTexture, fragUV).rgb * irradiance;
 
 	// Color based on normals, lighting.
 	outColor = vec4(pow(linearColor, vec3(1.0 / 2.2)), 1.0);

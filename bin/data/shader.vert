@@ -17,7 +17,7 @@ void main()
 {
 	gl_Position = mvp * vec4(position, 1.0);
 	fragNormal = normalMatrix * normal;
-	fragUV = uv;
+	fragUV = vec2(uv.x, 1.0 - uv.y);
 
 	// For spotlight.
 	worldPos = (model * vec4(position, 1.0)).xyz;
