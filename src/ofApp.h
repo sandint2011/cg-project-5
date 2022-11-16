@@ -50,6 +50,11 @@ private:
 	ofMesh coneMesh;
 	ofMesh cubeMesh;
 
+	// Textures.
+	ofImage swordColor;
+	ofImage swordMetallic;
+	ofImage swordNormal;
+
 	// Skybox.
 	ofxCubemap cubemap;
 	ofShader skyboxShader;

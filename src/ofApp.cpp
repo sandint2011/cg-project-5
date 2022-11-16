@@ -36,13 +36,18 @@ void ofApp::setup()
 		swordMesh.setNormal(i, -swordMesh.getNormal(i));
 	}
 
+	// Load sword textures.
+	swordColor.load("textures/sword_color.png");
+	swordMetallic.load("textures/sword_metallic.png");
+	swordNormal.load("textures/sword_normal.png");
+
 	// Add animation to root.
 	root.childNodes.emplace_back(new SinAnimationNode(0.01f, glm::vec3(0, 1, 0), 1.0f));
 	root.childNodes.back()->localTransform = translate(vec3(0, 0, 0));
 	animation = root.childNodes.back();
 
 	// Add sword to animation.
-	animation->childNodes.emplace_back(new LitDrawNode(swordMesh, shader, sceneLighting));
+	animation->childNodes.emplace_back(new LitDrawNode(swordMesh, shader, sceneLighting, swordColor, swordMetallic, swordNormal));
 	animation->childNodes.back()->localTransform = rotate(radians(-30.0f), vec3(1, 0, 0));
 	sword = animation->childNodes.back();
 

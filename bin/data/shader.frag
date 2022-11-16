@@ -2,6 +2,11 @@
 
 in vec3 fragNormal;
 in vec3 worldPos;
+in vec2 fragUV;
+
+uniform sampler2D colorTexture;
+uniform sampler2D metallicTexture;
+uniform sampler2D normalTexture;
 
 // LitDrawNode uniforms.
 uniform vec3 meshColor;
@@ -26,9 +31,6 @@ out vec4 outColor;
 
 void main()
 {
-	// Color based on normals.
-	//vec3 normalMeshColor = fragNormal * 0.5 + 0.5;
-
 	// Lighting.
 	vec3 normal = normalize(fragNormal);
 	float nDotL = max(0, dot(normal, dirLightDir));
@@ -52,7 +54,7 @@ void main()
 	irradiance += pointLightColor * pointFalloff * pointLightIntensity;
 
 	// Surface reflection.
-	vec3 linearColor = meshColor * irradiance;
+	vec3 linearColor = texture(colorTexture, fragUV) * irradiance;
 
 	// Color based on normals, lighting.
 	outColor = vec4(pow(linearColor, vec3(1.0 / 2.2)), 1.0);
