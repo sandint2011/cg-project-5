@@ -95,7 +95,7 @@ void ofApp::draw()
 	root.drawSceneGraph(cameraMatrices);
 
 	// Draw skybox before objects (hopefully this works).
-	//drawSkybox(cameraMatrices);
+	drawSkybox(cameraMatrices);
 }
 
 //--------------------------------------------------------------
