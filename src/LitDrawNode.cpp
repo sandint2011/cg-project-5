@@ -20,8 +20,8 @@ void LitDrawNode::drawNode(const CameraMatrices& camera, const glm::mat4& model)
     shader.setUniformMatrix3f("normalMatrix", transpose(inverse(model)));
 
     shader.setUniformTexture("colorTexture", colorTexture.getTexture(), 0);
-    //shader.setUniformTexture("metallicTexture", metallicTexture.getTexture());
-    //shader.setUniformTexture("normalTexture", normalTexture.getTexture());
+    shader.setUniformTexture("metallicTexture", metallicTexture.getTexture(), 2);
+    //shader.setUniformTexture("normalTexture", normalTexture.getTexture(), IDK);
 
     shader.setUniform3f("meshColor", meshColor);
     shader.setUniform3f("ambientColor", sceneLighting.ambientLight);
