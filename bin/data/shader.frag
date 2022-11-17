@@ -1,12 +1,15 @@
 #version 410
 
 in vec3 fragNormal;
+in vec3 fragTangent;
 in vec3 worldPos;
 in vec2 fragUV;
 
 uniform sampler2D colorTexture;
 uniform sampler2D metallicTexture;
 uniform sampler2D normalTexture;
+
+uniform mat3 normalMatrix;
 
 // LitDrawNode uniforms.
 uniform vec3 meshColor;
@@ -33,11 +36,12 @@ void main()
 {
 	// Lighting.
 	vec3 normal = normalize(fragNormal);
+	vec3 tangent = fragTangent;
+	vec3 bitangent = normalize(normalMatrix * cross(tangent, normal));
 	float nDotL = max(0, dot(normal, dirLightDir));
 
 	// Surface lighting.
 	vec3 irradiance = ambientColor + dirLightColor * nDotL;
-
 
 	//Spotlight lighting
 	vec3 toSpotLight = spotLightPos - worldPos;

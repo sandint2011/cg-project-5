@@ -10,6 +10,7 @@
 #include "PointLight.h"
 #include "SpotLight.h"
 #include "SpotLightNode.h"
+#include "calcTangents.h"
 
 //--------------------------------------------------------------
 void ofApp::setup()
@@ -28,13 +29,14 @@ void ofApp::setup()
 	{
 		cubeMesh.setNormal(i, -cubeMesh.getNormal(i));
 	}
-	// Load sword and invert the normals.
+	// Load sword and invert the normals and calculate tangents.
 	swordMesh.load("models/sword.ply");
 	swordMesh.flatNormals();
 	for (int i = 0; i < swordMesh.getNumNormals(); i++)
 	{
 		swordMesh.setNormal(i, -swordMesh.getNormal(i));
 	}
+	calcTangents(swordMesh);
 
 	// Load sword textures.
 	swordColor.load("textures/sword_color.png");
