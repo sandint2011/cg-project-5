@@ -1,11 +1,12 @@
 #include "LitDrawNode.h"
 
-LitDrawNode::LitDrawNode(const ofMesh& mesh, const ofShader& shader, const Lighting& sceneLighting, ofImage colorTexture, ofImage metallicTexture, ofImage normalTexture)
+LitDrawNode::LitDrawNode(const ofMesh& mesh, const ofShader& shader, const Lighting& sceneLighting, ofImage colorTexture, ofImage metallicTexture, ofImage normalTexture, ofxCubemap envMap)
     : SimpleDrawNode(mesh, shader), sceneLighting { sceneLighting }
 {
     this->colorTexture = colorTexture;
     this->metallicTexture = metallicTexture;
     this->normalTexture = normalTexture;
+    this->envMap = envMap;
 }
 
 void LitDrawNode::drawNode(const CameraMatrices& camera, const glm::mat4& model) const
@@ -21,7 +22,7 @@ void LitDrawNode::drawNode(const CameraMatrices& camera, const glm::mat4& model)
 
     shader.setUniformTexture("colorTexture", colorTexture.getTexture(), 0);
     shader.setUniformTexture("metallicTexture", metallicTexture.getTexture(), 2);
-    //shader.setUniformTexture("normalTexture", normalTexture.getTexture(), IDK);
+    shader.setUniformTexture("normalTexture", normalTexture.getTexture(), 1);
 
     shader.setUniform3f("meshColor", meshColor);
     shader.setUniform3f("ambientColor", sceneLighting.ambientLight);
@@ -34,6 +35,8 @@ void LitDrawNode::drawNode(const CameraMatrices& camera, const glm::mat4& model)
     shader.setUniform3f("spotLightPos", sceneLighting.spotLight.position);
     shader.setUniform1f("spotLightCutoff", sceneLighting.spotLight.cutoff);
     shader.setUniform1f("spotLightIntensity", sceneLighting.spotLight.intensity);
+
+    shader.setUniformTexture("envMap", envMap.getTexture(), 3);
 
     // shader.setUniform3f("pointLightColor", sceneLighting.pointLight.getColorIntensity());
     // shader.setUniform3f("pointLightPos", sceneLighting.pointLight.position);

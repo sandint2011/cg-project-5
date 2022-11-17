@@ -43,6 +43,9 @@ void ofApp::setup()
 	swordMetallic.load("textures/sword_metallic.png");
 	swordNormal.load("textures/sword_normal.png");
 
+	swordColor.getTexture().generateMipmap();
+	swordColor.getTexture().setTextureMinMagFilter(GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+
 	// Add animation to root.
 	root.childNodes.emplace_back(new SinAnimationNode(0.01f, glm::vec3(0, 1, 0), 1.0f));
 	root.childNodes.back()->localTransform = translate(vec3(0, 0, 0));
@@ -55,7 +58,7 @@ void ofApp::setup()
 
 	// Skybox.
 	cubemap.load("textures/skybox_front.png", "textures/skybox_back.png", "textures/skybox_right.png", "textures/skybox_left.png", "textures/skybox_top.png", "textures/skybox_bottom.png");
-
+	envMap.load("textures/irradiance_front.png", "textures/irradiance_back.png", "textures/irradiance_right.png", "textures/irradiance_left.png", "textures/irradiance_top.png", "textures/irradiance_bottom.png");
 	reloadShaders();
 }
 
@@ -149,7 +152,7 @@ void ofApp::keyPressed(int key)
 		needsShaderReload = true;
 	}
 
-	const float cameraSpeed = 20;
+	const float cameraSpeed = 5;
 	const float sprint = 5;
 	const float dt = ofGetLastFrameTime();
 

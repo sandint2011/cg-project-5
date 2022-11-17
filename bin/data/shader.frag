@@ -1,6 +1,6 @@
 #version 410
 
-in vec3 fragNormal;
+in mat3 TBN;
 in vec3 fragTangent;
 in vec3 worldPos;
 in vec2 fragUV;
@@ -35,10 +35,14 @@ out vec4 outColor;
 void main()
 {
 	// Lighting.
-	vec3 normal = normalize(fragNormal);
+	//vec3 normal = normalize(fragNormal);
+
+	vec3 tsNormal = texture(normalTexture, fragUV).xyz * 2 - 1;
+	vec3 wsNormal = normalize(TBN * tsNormal);
+
 	vec3 tangent = fragTangent;
-	vec3 bitangent = normalize(normalMatrix * cross(tangent, normal));
-	float nDotL = max(0, dot(normal, dirLightDir));
+	vec3 bitangent = normalize(normalMatrix * cross(tangent, wsNormal));
+	float nDotL = max(0, dot(wsNormal, dirLightDir));
 
 	// Surface lighting.
 	vec3 irradiance = ambientColor + dirLightColor * nDotL;
@@ -48,7 +52,7 @@ void main()
 	vec3 spotLightDir = normalize(toSpotLight);
 	float cosAngle = dot(spotLightDir, -spotLightConeDir);
 	float spotFalloff = (1.0 / dot(toSpotLight, toSpotLight));
-	float spotNDotL = max(0, dot(normal, spotLightDir));
+	float spotNDotL = max(0, dot(wsNormal, spotLightDir));
 	irradiance += spotLightColor * spotNDotL * spotFalloff * spotLightIntensity;
 	
 
@@ -58,7 +62,7 @@ void main()
 	irradiance += pointLightColor * pointFalloff * pointLightIntensity;
 
 	// Surface reflection.
-	vec3 linearColor = texture(colorTexture, fragUV).rgb * irradiance;
+	vec3 linearColor = pow(texture(colorTexture, fragUV).rgb * irradiance,vec3(2.2));
 
 	// Color based on normals, lighting.
 	outColor = vec4(pow(linearColor, vec3(1.0 / 2.2)), 1.0);

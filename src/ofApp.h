@@ -57,13 +57,14 @@ private:
 
 	// Skybox.
 	ofxCubemap cubemap;
+	ofxCubemap envMap;
 	ofShader skyboxShader;
 
 	// Lighting.
-	DirectionalLight sceneDirectionalLight {glm::vec3(-1, -1, -1)};
+	DirectionalLight sceneDirectionalLight {glm::vec3(-1, -1, 1)};
 	SpotLight sceneSpotLight {};
 	Lighting sceneLighting{
-		glm::vec3(0, 0, 0), // Ambient light.
+		glm::vec3(.25, 0.25, 0.25), // Ambient light.
 		sceneDirectionalLight,
 		sceneSpotLight
 	};
