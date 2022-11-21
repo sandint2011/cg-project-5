@@ -46,19 +46,21 @@ void ofApp::setup()
 	swordColor.getTexture().generateMipmap();
 	swordColor.getTexture().setTextureMinMagFilter(GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
 
+	// Skybox.
+	cubemap.load("textures/skybox_front.png", "textures/skybox_back.png", "textures/skybox_right.png", "textures/skybox_left.png", "textures/skybox_top.png", "textures/skybox_bottom.png");
+	envMap.load("textures/irradiance_front.png", "textures/irradiance_back.png", "textures/irradiance_right.png", "textures/irradiance_left.png", "textures/irradiance_top.png", "textures/irradiance_bottom.png");
+
+
 	// Add animation to root.
 	root.childNodes.emplace_back(new SinAnimationNode(0.01f, glm::vec3(0, 1, 0), 1.0f));
 	root.childNodes.back()->localTransform = translate(vec3(0, 0, 0));
 	animation = root.childNodes.back();
 
 	// Add sword to animation.
-	animation->childNodes.emplace_back(new LitDrawNode(swordMesh, shader, sceneLighting, swordColor, swordMetallic, swordNormal));
+	animation->childNodes.emplace_back(new LitDrawNode(swordMesh, shader, sceneLighting, swordColor, swordMetallic, swordNormal, envMap));
 	animation->childNodes.back()->localTransform = rotate(radians(-30.0f), vec3(1, 0, 0));
 	sword = animation->childNodes.back();
 
-	// Skybox.
-	cubemap.load("textures/skybox_front.png", "textures/skybox_back.png", "textures/skybox_right.png", "textures/skybox_left.png", "textures/skybox_top.png", "textures/skybox_bottom.png");
-	envMap.load("textures/irradiance_front.png", "textures/irradiance_back.png", "textures/irradiance_right.png", "textures/irradiance_left.png", "textures/irradiance_top.png", "textures/irradiance_bottom.png");
 	reloadShaders();
 }
 
