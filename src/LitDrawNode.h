@@ -8,7 +8,7 @@ class LitDrawNode : public SimpleDrawNode
 {
 public:
     // Constructor
-    LitDrawNode(const ofMesh& mesh, const ofShader& shader, const Lighting& sceneLighting, ofImage colorTexture, ofImage metallicTexture, ofImage normalTexture, ofxCubemap& envMap);
+    LitDrawNode(const ofMesh& mesh, const ofShader& shader, const Lighting& sceneLighting, ofImage colorTexture, ofImage metallicTexture, ofImage normalTexture, ofxCubemap& skyMap, ofxCubemap& envMap);
 
     // Override the base class's draw function
     void drawNode(const CameraMatrices& camera, const glm::mat4& model) const;
@@ -19,5 +19,7 @@ public:
     ofImage colorTexture;
     ofImage metallicTexture;
     ofImage normalTexture;
+
+    ofxCubemap& skyMap;
     ofxCubemap& envMap;
 };

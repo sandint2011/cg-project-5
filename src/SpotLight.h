@@ -11,8 +11,8 @@ public:
     //glm::vec3 position = glm::vec3(-0.2, 1.5, 0);
 
     glm::vec3 position = glm::vec3(.5,1,0);
-    glm::vec3 color = glm::vec3(1, .9, .9);
-    float intensity = 1;
+    glm::vec3 color = glm::vec3(1, .75, .75);
+    float intensity = 2;
     glm::vec3 getColorIntensity() const
     {
         return color * intensity;

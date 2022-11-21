@@ -62,7 +62,7 @@ void ofApp::setup()
 	animation = root.childNodes.back();
 
 	// Add sword to animation.
-	animation->childNodes.emplace_back(new LitDrawNode(swordMesh, shader, sceneLighting, swordColor, swordMetallic, swordNormal, envMap));
+	animation->childNodes.emplace_back(new LitDrawNode(swordMesh, shader, sceneLighting, swordColor, swordMetallic, swordNormal, cubemap, envMap));
 	animation->childNodes.back()->localTransform = rotate(radians(-30.0f), vec3(1, 0, 0));
 	sword = animation->childNodes.back();
 

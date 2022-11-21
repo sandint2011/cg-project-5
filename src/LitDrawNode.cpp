@@ -1,7 +1,7 @@
 #include "LitDrawNode.h"
 
-LitDrawNode::LitDrawNode(const ofMesh& mesh, const ofShader& shader, const Lighting& sceneLighting, ofImage colorTexture, ofImage metallicTexture, ofImage normalTexture, ofxCubemap& envMap)
-    : SimpleDrawNode(mesh, shader), sceneLighting { sceneLighting }, envMap {envMap}
+LitDrawNode::LitDrawNode(const ofMesh& mesh, const ofShader& shader, const Lighting& sceneLighting, ofImage colorTexture, ofImage metallicTexture, ofImage normalTexture, ofxCubemap& skyMap, ofxCubemap& envMap)
+    : SimpleDrawNode(mesh, shader), sceneLighting{ sceneLighting }, skyMap { skyMap }, envMap {envMap}
 {
     this->colorTexture = colorTexture;
     this->metallicTexture = metallicTexture;
@@ -22,6 +22,8 @@ void LitDrawNode::drawNode(const CameraMatrices& camera, const glm::mat4& model)
     shader.setUniformTexture("colorTexture", colorTexture.getTexture(), 0);
     shader.setUniformTexture("metallicTexture", metallicTexture.getTexture(), 2);
     shader.setUniformTexture("normalTexture", normalTexture.getTexture(), 1);
+
+    shader.setUniform3f("cameraPosition", camera.getCamera().position);
 
     shader.setUniform3f("meshColor", meshColor);
     shader.setUniform3f("ambientColor", sceneLighting.ambientLight);
