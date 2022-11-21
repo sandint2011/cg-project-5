@@ -1,12 +1,11 @@
 #include "LitDrawNode.h"
 
-LitDrawNode::LitDrawNode(const ofMesh& mesh, const ofShader& shader, const Lighting& sceneLighting, ofImage colorTexture, ofImage metallicTexture, ofImage normalTexture, ofxCubemap envMap)
-    : SimpleDrawNode(mesh, shader), sceneLighting { sceneLighting }
+LitDrawNode::LitDrawNode(const ofMesh& mesh, const ofShader& shader, const Lighting& sceneLighting, ofImage colorTexture, ofImage metallicTexture, ofImage normalTexture, ofxCubemap& envMap)
+    : SimpleDrawNode(mesh, shader), sceneLighting { sceneLighting }, envMap {envMap}
 {
     this->colorTexture = colorTexture;
     this->metallicTexture = metallicTexture;
     this->normalTexture = normalTexture;
-    this->envMap = envMap;
 }
 
 void LitDrawNode::drawNode(const CameraMatrices& camera, const glm::mat4& model) const
