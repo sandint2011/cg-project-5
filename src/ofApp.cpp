@@ -43,8 +43,13 @@ void ofApp::setup()
 	swordMetallic.load("textures/sword_metallic.png");
 	swordNormal.load("textures/sword_normal.png");
 
+	// Mipmaps for sword textures.
 	swordColor.getTexture().generateMipmap();
 	swordColor.getTexture().setTextureMinMagFilter(GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+	swordMetallic.getTexture().generateMipmap();
+	swordMetallic.getTexture().setTextureMinMagFilter(GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+	swordNormal.getTexture().generateMipmap();
+	swordNormal.getTexture().setTextureMinMagFilter(GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
 
 	// Skybox.
 	cubemap.load("textures/skybox_front.png", "textures/skybox_back.png", "textures/skybox_right.png", "textures/skybox_left.png", "textures/skybox_top.png", "textures/skybox_bottom.png");
